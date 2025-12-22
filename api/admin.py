@@ -1,0 +1,21 @@
+from django.contrib import admin
+from .models import Event, Photo
+
+class PhotoInline(admin.TabularInline):
+    model = Photo
+    extra = 1
+    fields = ('image', 'visible', 'pre_loaded', 'uploaded_at')
+    readonly_fields = ('uploaded_at',)
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date', 'user', 'created_at', 'id')
+    search_fields = ('title', 'description')
+    list_filter = ('date', 'created_at')
+    inlines = [PhotoInline] 
+
+
+@admin.register(Photo)
+class PhotoAdmin(admin.ModelAdmin):
+    list_display = ('event', 'uploaded_at', 'visible', 'pre_loaded', 'id')
+    list_filter = ('uploaded_at',)
