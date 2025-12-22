@@ -3,8 +3,9 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Event, Photo
 from .serializers import EventSerializer, PhotoSerializer
 
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
+from .forms import PhotoUploadForm
 
 @login_required
 def event_photos_slide(request, event_id):
@@ -41,3 +42,23 @@ class PhotoViewSet(viewsets.ModelViewSet):
         if event.user != self.request.user:
             raise PermissionError("No puedes subir fotos a eventos de otros usuarios.")
         serializer.save()
+
+
+@login_required
+def event_photo_upload(request, event_id):
+    event = get_object_or_404(Event, id=event_id, user=request.user)
+
+    if request.method == "POST":
+        form = PhotoUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.save(commit=False)
+            photo.event = event
+            photo.visible = False # o False según tu lógica
+            photo.pre_loaded = False  # o True, como definas
+            photo.save()
+            # Redirigís a donde quieras: al slide, a una página de gracias, etc.
+            return redirect("event_photos_slide", event_id=event.id)
+    else:
+        form = PhotoUploadForm()
+
+    return render(request, "events/upload.html", {"event": event, "form": form})

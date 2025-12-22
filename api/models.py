@@ -21,10 +21,9 @@ class Event(models.Model):
         return reverse("event_photos_slide", kwargs={"event_id": self.id})
 
     def generate_qrcode(self):
-        # URL que apunta al slide de fotos de este evento
-        url = self.get_absolute_url()
+        # URL que apunta al formulario de subida de fotos de este evento
+        url = self.get_upload_url()
 
-        # Generar el QR
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -36,15 +35,18 @@ class Event(models.Model):
 
         img = qr.make_image(fill_color="black", back_color="white")
 
-        # Guardar la imagen en memoria
         buffer = BytesIO()
         img.save(buffer, format="PNG")
         buffer.seek(0)
 
-        # Guardar en el campo ImageField
         filename = f"event_{self.id}_qrcode.png"
         self.qrcode.save(filename, ContentFile(buffer.read()), save=False)
         buffer.close()
+
+    
+    def get_upload_url(self):
+        from django.urls import reverse
+        return reverse("event_photo_upload", kwargs={"event_id": self.id})
 
     def __str__(self):
         return f"{self.title} ({self.date})"
