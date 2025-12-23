@@ -2,12 +2,15 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Event, Photo
 from .serializers import EventSerializer, PhotoSerializer
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import PhotoUploadForm
+from django.db.models import Q
 
-@login_required
+
 def event_photos_slide(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     photos = event.photos.filter(visible=True)
@@ -43,20 +46,27 @@ class PhotoViewSet(viewsets.ModelViewSet):
             raise PermissionError("No puedes subir fotos a eventos de otros usuarios.")
         serializer.save()
 
+@api_view(["GET"])
+@permission_classes([AllowAny])  # o IsAuthenticated si querés protegerlo
+def event_photos_json(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    photos = event.photos.filter(
+        Q(visible=True) | Q(pre_loaded=True)
+    ).order_by("id")
+    data = PhotoSerializer(photos, many=True).data
+    return Response(data)
 
-@login_required
+
 def event_photo_upload(request, event_id):
-    event = get_object_or_404(Event, id=event_id, user=request.user)
+    event = get_object_or_404(Event, id=event_id)
 
     if request.method == "POST":
         form = PhotoUploadForm(request.POST, request.FILES)
         if form.is_valid():
             photo = form.save(commit=False)
+            # Aquí se fija el evento en el backend
             photo.event = event
-            photo.visible = False # o False según tu lógica
-            photo.pre_loaded = False  # o True, como definas
             photo.save()
-            # Redirigís a donde quieras: al slide, a una página de gracias, etc.
             return redirect("event_photos_slide", event_id=event.id)
     else:
         form = PhotoUploadForm()

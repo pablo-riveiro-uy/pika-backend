@@ -1,65 +1,231 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ event.title }}</title>
     <style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #000;
+            color: #fff;
+        }
+
         .title {
             text-align: center;
-            margin-top: 20px;
-            font-family: Arial, sans-serif;
+            margin: 16px 0;
+            font-size: 1.8rem;
         }
+
+        .layout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 16px 32px;
+        }
+
+        .qr-column {
+            flex: 0 0 220px;
+            text-align: center;
+        }
+
+        .qr-title {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .qr-box {
+            background: #111;
+            border-radius: 12px;
+            padding: 12px;
+            display: inline-block;
+        }
+
+        .qr-box img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            display: block;
+        }
+
         .slideshow-container {
-            max-width: 1200px;
-            margin: auto;
+            flex: 1 1 auto;
+            max-width: 900px;
             position: relative;
             text-align: center;
         }
 
-        .mySlides {
-            display: none;
+        .mySlides img {
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
         }
 
-        .mySlides img {
-            width: 80%;
+        @media (max-width: 768px) {
+            .layout {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .qr-column {
+                order: 2;
+                flex: 0 0 auto;
+            }
+
+            .slideshow-container {
+                order: 1;
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <h1 class="title">{{ event.title }}</h1>
 
-    <div class="slideshow-container">
-        {% for photo in photos %}
-            <div class="mySlides">
-                <img src="{{ photo.image.url }}" alt="">
+    <div class="layout">
+        <!-- Columna izquierda: QR -->
+        <div class="qr-column">
+            <div class="qr-title">Escaneá para compartir tus fotos</div>
+            <div class="qr-box">
+                {% if event.qrcode %}
+                    <img src="{{ event.qrcode.url }}" alt="QR para subir fotos">
+                {% else %}
+                    <span>QR no disponible</span>
+                {% endif %}
             </div>
-        {% endfor %}
+        </div>
+
+        <!-- Centro: slideshow -->
+        <div class="slideshow-container" id="slideshow-container">
+            Cargando fotos...
+        </div>
+
+        <!-- Columna derecha: mismo QR y texto -->
+        <div class="qr-column">
+            <div class="qr-title">Escaneá para compartir tus fotos</div>
+            <div class="qr-box">
+                {% if event.qrcode %}
+                    <img src="{{ event.qrcode.url }}" alt="QR para subir fotos">
+                {% else %}
+                    <span>QR no disponible</span>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
     <script>
-        let slideIndex = 0;
-        showSlides();
+        const photosJsonUrl = "{% url 'event_photos_json' event_id=event.id %}";
 
-        function showSlides() {
-            const slides = document.getElementsByClassName("mySlides");
-            if (!slides.length) return;
+        let photos = [];
+        let mode = "new";          // "new" (visibles) o "preloaded"
+        let visibleIndex = 0;
+        let preloadedIndex = 0;
 
-            // Ocultar todas
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
+        const container = document.getElementById("slideshow-container");
+
+        async function fetchPhotos() {
+            try {
+                const resp = await fetch(photosJsonUrl);
+                if (!resp.ok) return;
+                photos = await resp.json();
+                // console.log("Fotos:", photos);
+            } catch (e) {
+                console.error("Error fetchPhotos", e);
             }
-
-            slideIndex++;
-            if (slideIndex > slides.length) {
-                slideIndex = 1;
-            }
-
-            slides[slideIndex - 1].style.display = "block";
-
-            // Cambiar cada 3 segundos
-            setTimeout(showSlides, 9000);
         }
+
+        function getVisiblePhotos() {
+            return photos.filter(p => p.visible);
+        }
+
+        function getPreloadedPhotos() {
+            return photos.filter(p => p.pre_loaded);
+        }
+
+        function renderSlide(photo) {
+            container.innerHTML = "";
+            const slideDiv = document.createElement("div");
+            slideDiv.className = "mySlides";
+            slideDiv.style.display = "block";
+            const img = document.createElement("img");
+            img.src = photo.image;      // el JSON trae image como URL
+            img.style.width = "80%";
+            slideDiv.appendChild(img);
+            container.appendChild(slideDiv);
+        }
+
+        async function slideLoop() {
+            // Asegurar datos
+            if (!photos.length) {
+                await fetchPhotos();
+            }
+
+            if (!photos.length) {
+                container.innerHTML = "No hay fotos aún.";
+                setTimeout(slideLoop, 5000);
+                return;
+            }
+
+            const visibles = getVisiblePhotos();
+            const preloaded = getPreloadedPhotos();
+
+            if (mode === "new") {
+                // Si no hay visibles, pasamos a preloaded
+                if (!visibles.length) {
+                    mode = "preloaded";
+                    preloadedIndex = 0;
+                    setTimeout(slideLoop, 5000);
+                    return;
+                }
+
+                if (visibleIndex >= visibles.length) {
+                    // Completamos una vuelta de visibles -> pasar a preloaded
+                    visibleIndex = 0;
+                    mode = "preloaded";
+                    preloadedIndex = 0;
+                }
+
+                const photo = visibles[visibleIndex];
+                visibleIndex++;
+                renderSlide(photo);
+
+            } else { // mode === "preloaded"
+                if (!preloaded.length) {
+                    // No hay preloaded -> volver a visibles
+                    mode = "new";
+                    visibleIndex = 0;
+                    setTimeout(slideLoop, 5000);
+                    return;
+                }
+
+                if (preloadedIndex >= preloaded.length) {
+                    // Completamos una vuelta de preloaded -> volver a visibles
+                    preloadedIndex = 0;
+                    mode = "new";
+                    visibleIndex = 0;
+                    setTimeout(slideLoop, 5000);
+                    return;
+                }
+
+                const photo = preloaded[preloadedIndex];
+                preloadedIndex++;
+                renderSlide(photo);
+            }
+
+            // Cada cierto tiempo refrescamos la lista (por si hay nuevas visibles)
+            setTimeout(async () => {
+                await fetchPhotos();
+                slideLoop();
+            }, 9000);
+        }
+
+        slideLoop();
     </script>
 </body>
 </html>
