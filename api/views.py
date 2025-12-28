@@ -11,10 +11,11 @@ from .forms import PhotoUploadForm
 from django.db.models import Q
 
 
-def event_photos_slide(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
+def event_photos_slide(request, token):
+    event = get_object_or_404(Event, token=token)
     photos = event.photos.filter(visible=True)
     return render(request, "events/slide.html", {"event": event, "photos": photos})
+
 
 
 
@@ -48,8 +49,8 @@ class PhotoViewSet(viewsets.ModelViewSet):
 
 @api_view(["GET"])
 @permission_classes([AllowAny])  # o IsAuthenticated si querés protegerlo
-def event_photos_json(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
+def event_photos_json(request, token):
+    event = get_object_or_404(Event, token=token)
     photos = event.photos.filter(
         Q(visible=True) | Q(pre_loaded=True)
     ).order_by("id")
@@ -57,17 +58,22 @@ def event_photos_json(request, event_id):
     return Response(data)
 
 
-def event_photo_upload(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
+def event_photo_upload(request, token):
+    # Buscamos el evento por el token (UUID), no por id
+    event = get_object_or_404(Event, token=token)
 
     if request.method == "POST":
         form = PhotoUploadForm(request.POST, request.FILES)
         if form.is_valid():
             photo = form.save(commit=False)
-            # Aquí se fija el evento en el backend
+            # Asignamos el evento desde el backend (seguro)
             photo.event = event
             photo.save()
-            return redirect("event_photos_slide", event_id=event.id)
+            # Redirigimos al slider usando el token
+            return redirect("event_photos_slide", token=token)
+        else:
+            # Si el formulario no es válido, lo mostramos con errores
+            pass
     else:
         form = PhotoUploadForm()
 

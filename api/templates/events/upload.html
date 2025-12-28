@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,20 +13,24 @@
             background: #111;
             color: #fff;
         }
+
         .container {
             max-width: 480px;
             margin: 0 auto;
         }
+
         h1 {
             font-size: 1.3rem;
             margin-bottom: 1rem;
             text-align: center;
         }
+
         .card {
             background: #1e1e1e;
             border-radius: 12px;
             padding: 1rem;
         }
+
         .btn {
             display: block;
             width: 100%;
@@ -37,6 +42,7 @@
             color: #fff;
             font-size: 1rem;
         }
+
         input[type="file"] {
             width: 100%;
             padding: 0.7rem;
@@ -45,19 +51,79 @@
             color: #fff;
             border: 1px solid #444;
         }
+
+        .upload-message {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .upload-message.success {
+            background: #00c853;
+            color: white;
+        }
+
+        .upload-message.error {
+            background: #d32f2f;
+            color: white;
+        }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <h1>Subir foto para {{ event.title }}</h1>
-    <div class="card">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.image.errors }}
-            {{ form.image }}
-            <button type="submit" class="btn">Tomar foto / Subir</button>
-        </form>
+    <div class="container">
+        <h1>Subir foto para {{ event.title }}</h1>
+        <div class="card">
+            <form id="photo-upload-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="image" accept="image/*" capture="environment" required>
+                <button type="submit" class="btn">Tomar foto / Subir</button>
+                <div id="upload-message" class="upload-message"></div>
+                {{ form.image.errors }}
+
+            </form>
+        </div>
     </div>
-</div>
 </body>
+<script>
+    const form = document.getElementById("photo-upload-form");
+    const eventId = {{ event.id }};  // si lo necesitás para el evento en el frontend
+    const uploadUrl = "{% url 'event_photo_upload' token=event.token %}";
+
+    function showMessage(text, type) {
+        const msg = document.getElementById("upload-message");
+        msg.textContent = text;
+        msg.className = "upload-message " + type;
+        msg.style.opacity = "1";
+
+        // Ocultar después de 3 segundos
+        setTimeout(() => {
+            msg.style.opacity = "0";
+        }, 3000);
+    }
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const resp = await fetch(uploadUrl, {
+            method: "POST",
+            body: formData,
+        });
+
+        if (resp.ok) {
+            window.dispatchEvent(new CustomEvent("photoUploaded", { detail: eventId }));
+            form.reset();
+            showMessage("Excelente!!! Tu foto fue subida con éxito 📸", "success");
+        } else {
+            showMessage("Ups, Error al subir la foto", "error");
+        }
+    });
+</script>
+
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,6 +86,7 @@
         }
     </style>
 </head>
+
 <body>
     <h1 class="title">{{ event.title }}</h1>
 
@@ -94,9 +96,9 @@
             <div class="qr-title">Escaneá para compartir tus fotos</div>
             <div class="qr-box">
                 {% if event.qrcode %}
-                    <img src="{{ event.qrcode.url }}" alt="QR para subir fotos">
+                <img src="{{ event.qrcode.url }}" alt="QR para subir fotos">
                 {% else %}
-                    <span>QR no disponible</span>
+                <span>QR no disponible</span>
                 {% endif %}
             </div>
         </div>
@@ -111,16 +113,16 @@
             <div class="qr-title">Escaneá para compartir tus fotos</div>
             <div class="qr-box">
                 {% if event.qrcode %}
-                    <img src="{{ event.qrcode.url }}" alt="QR para subir fotos">
+                <img src="{{ event.qrcode.url }}" alt="QR para subir fotos">
                 {% else %}
-                    <span>QR no disponible</span>
+                <span>QR no disponible</span>
                 {% endif %}
             </div>
         </div>
     </div>
 
     <script>
-        const photosJsonUrl = "{% url 'event_photos_json' event_id=event.id %}";
+        const photosJsonUrl = "{% url 'event_photos_json' token=event.token %}";
 
         let photos = [];
         let mode = "new";          // "new" (visibles) o "preloaded"
@@ -225,7 +227,17 @@
             }, 9000);
         }
 
+        window.addEventListener("photoUploaded", (e) => {
+            if (e.detail === eventId) {
+                // Forzar recarga de fotos
+                fetchPhotos();
+                // Opcional: forzar volver a modo "new"
+                mode = "new";
+                slideIndex = 0;
+            }
+        });
         slideLoop();
     </script>
 </body>
+
 </html>

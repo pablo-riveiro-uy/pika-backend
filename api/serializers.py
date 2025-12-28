@@ -13,10 +13,4 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ['id', 'title', 'description', 'date', 'created_at', 'photos', 'qrcode']
-  
 
-    def create(self, validated_data):
-        event = Event.objects.create(**validated_data)
-        event.generate_qrcode()
-        event.save(update_fields=["qrcode"])
-        return event

@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from qrcode.image.pil import PilImage
+import uuid
 import qrcode
 from io import BytesIO
 from django.core.files.base import ContentFile
 from django.db import models
-
-
 
 
 class Event(models.Model):
@@ -16,12 +16,13 @@ class Event(models.Model):
     date = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     qrcode = models.ImageField(upload_to="qrcodes/", blank=True, null=True)
+    token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
-    def get_absolute_url(self):
-        return reverse("event_photos_slide", kwargs={"event_id": self.id})
+    def get_upload_url(self):
+        from django.urls import reverse
+        return reverse("event_photo_upload", kwargs={"token": self.token})
 
     def generate_qrcode(self):
-        # URL que apunta al formulario de subida de fotos de este evento
         url = self.get_upload_url()
 
         qr = qrcode.QRCode(
@@ -33,7 +34,7 @@ class Event(models.Model):
         qr.add_data(url)
         qr.make(fit=True)
 
-        img = qr.make_image(fill_color="black", back_color="white")
+        img = qr.make_image(fill_color="black", back_color="white", image_factory=PilImage)
 
         buffer = BytesIO()
         img.save(buffer, format="PNG")
@@ -43,10 +44,19 @@ class Event(models.Model):
         self.qrcode.save(filename, ContentFile(buffer.read()), save=False)
         buffer.close()
 
-    
-    def get_upload_url(self):
-        from django.urls import reverse
-        return reverse("event_photo_upload", kwargs={"event_id": self.id})
+    def save(self, *args, **kwargs):
+        # Si es un evento nuevo (no tiene id todavía), generamos el token
+        if not self.pk:
+            self.token = uuid.uuid4()
+
+        # Guardamos primero para que tenga id
+        super().save(*args, **kwargs)
+
+        # Solo generamos el QR si no existe todavía
+        if not self.qrcode:
+            self.generate_qrcode()
+            # Guardamos de nuevo para que se guarde el QR en el campo qrcode
+            super().save(update_fields=["qrcode"])
 
     def __str__(self):
         return f"{self.title} ({self.date})"
