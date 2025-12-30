@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import EventViewSet, PhotoViewSet, event_photos_slide, event_photo_upload, event_photos_json
+from .views import EventViewSet, PhotoViewSet, event_photos_slide, event_photo_upload, event_photos_json, event_manager, event_manager_select
 
 router = DefaultRouter()
 router.register(r'events', EventViewSet, basename='event')
@@ -11,4 +11,6 @@ urlpatterns = [
     path("event/<uuid:token>/slide/", event_photos_slide, name="event_photos_slide"),
     path("event/<uuid:token>/upload/", event_photo_upload, name="event_photo_upload"),
     path("event/<uuid:token>/photos-json/", event_photos_json, name="event_photos_json"),
+    path("manager/", event_manager_select, name="event_manager_select"),
+    path("manager/<uuid:token>/", event_manager, name="event_manager"),
 ]

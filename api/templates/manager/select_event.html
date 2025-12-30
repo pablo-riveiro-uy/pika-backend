@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager de eventos</title>
+</head>
+<body>
+    <h1>Elegir evento</h1>
+    <ul>
+        {% for e in events %}
+        <li>
+            <a href="{% url 'event_manager' token=e.token %}">
+                {{ e.title }} ({{ e.date }})
+            </a>
+        </li>
+        {% empty %}
+        <li>No hay eventos.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
