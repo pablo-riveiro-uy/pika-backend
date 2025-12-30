@@ -11,16 +11,15 @@ class PhotoInline(admin.TabularInline):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'user', 'created_at', 'id', 'token')
-    search_fields = ('title', 'description', 'token')
-    list_filter = ('date', 'created_at')
+    list_display = ('title', 'date', 'user', 'created_at', 'id', 'token', 'theme', 'font')
+    list_filter = ('date', 'created_at', 'theme', 'font')
+    fields = (
+        'user', 'title', 'description', 'date',
+        'theme', 'font', 'slider_background',
+        'qrcode', 'token', 'created_at',
+    )
+    readonly_fields = ('qrcode', 'token', 'created_at')
     inlines = [PhotoInline]
-
-    # Opcional: hacer que el token se vea más corto en la lista
-    def token(self, obj):
-        return str(obj.token)
-    token.short_description = 'Token (UUID)'
-    token.admin_order_field = 'token'
 
 
 @admin.register(Photo)

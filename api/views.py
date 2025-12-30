@@ -19,6 +19,7 @@ def event_photos_slide(request, token):
 
 
 
+
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated]

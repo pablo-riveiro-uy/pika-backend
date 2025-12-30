@@ -10,6 +10,18 @@ from django.db import models
 
 
 class Event(models.Model):
+    THEME_CHOICES = [
+        ("light", "Claro"),
+        ("dark", "Oscuro"),
+    ]
+
+    FONT_CHOICES = [
+        ("system", "Sistema"),
+        ("montserrat", "Montserrat"),
+        ("roboto", "Roboto"),
+        ("lora", "Lora (serif)"),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="events")
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
@@ -17,6 +29,22 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     qrcode = models.ImageField(upload_to="qrcodes/", blank=True, null=True)
     token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+
+    theme = models.CharField(
+        max_length=10,
+        choices=THEME_CHOICES,
+        default="dark",
+    )
+    font = models.CharField(
+        max_length=20,
+        choices=FONT_CHOICES,
+        default="system",
+    )
+    slider_background = models.ImageField(
+        upload_to="slider_backgrounds/",
+        blank=True,
+        null=True,
+    )
 
     def get_upload_url(self):
         from django.urls import reverse
