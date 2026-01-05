@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from django.http import JsonResponse
 from .models import Event, Photo
 from .serializers import EventSerializer, PhotoSerializer
 from rest_framework.decorators import api_view, permission_classes
@@ -151,21 +152,25 @@ def event_photos_json(request, token):
 
 
 def event_photo_upload(request, token):
-    # Buscamos el evento por el token (UUID), no por id
     event = get_object_or_404(Event, token=token)
 
     if request.method == "POST":
         form = PhotoUploadForm(request.POST, request.FILES)
         if form.is_valid():
             photo = form.save(commit=False)
-            # Asignamos el evento desde el backend (seguro)
             photo.event = event
             photo.save()
-            # Redirigimos al slider usando el token
+
+
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                return JsonResponse({"status": "ok"})
+
             return redirect("event_photos_slide", token=token)
         else:
-            # Si el formulario no es válido, lo mostramos con errores
-            pass
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                return JsonResponse(
+                    {"status": "error", "errors": form.errors}, status=400
+                )
     else:
         form = PhotoUploadForm()
 

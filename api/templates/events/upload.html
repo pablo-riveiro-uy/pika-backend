@@ -91,7 +91,7 @@
 </body>
 <script>
     const form = document.getElementById("photo-upload-form");
-    const eventId = {{ event.id }};  // si lo necesitás para el evento en el frontend
+    const eventId = "{{ event.id }}";
     const uploadUrl = "{% url 'event_photo_upload' token=event.token %}";
 
     function showMessage(text, type) {
@@ -113,6 +113,9 @@
         const resp = await fetch(uploadUrl, {
             method: "POST",
             body: formData,
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+            },
         });
 
         if (resp.ok) {
@@ -123,6 +126,7 @@
             showMessage("Ups, Error al subir la foto", "error");
         }
     });
+
 </script>
 
 
