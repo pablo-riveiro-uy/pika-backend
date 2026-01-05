@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.conf import settings
 from qrcode.image.pil import PilImage
 import uuid
 import qrcode
@@ -47,8 +48,8 @@ class Event(models.Model):
     )
 
     def get_upload_url(self):
-        from django.urls import reverse
-        return reverse("event_photo_upload", kwargs={"token": self.token})
+        relative = reverse("event_photo_upload", kwargs={"token": self.token})
+        return settings.SITE_BASE_URL.rstrip("/") + relative
 
     def generate_qrcode(self):
         url = self.get_upload_url()
