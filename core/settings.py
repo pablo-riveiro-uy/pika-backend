@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-*jhqrkylm=qpc^e!6w=5mt)+58-nst1b(5pp=4)8e+sg_5tk0r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "pika-service.up.railway.app",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://pika-service.up.railway.app",
+]
 
 
 # Application definition
