@@ -1,5 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from django.conf import settings
+from django.views.static import serve
 from .views import EventViewSet, PhotoViewSet, event_photos_slide, event_photo_upload, event_photos_json, event_manager, event_manager_select
 
 router = DefaultRouter()
@@ -13,4 +15,23 @@ urlpatterns = [
     path("event/<uuid:token>/photos-json/", event_photos_json, name="event_photos_json"),
     path("manager/", event_manager_select, name="event_manager_select"),
     path("manager/<uuid:token>/", event_manager, name="event_manager"),
+]
+# Static
+urlpatterns += [
+    path(
+        "static/<path:path>",
+        serve,
+        {"document_root": settings.STATIC_ROOT},
+        name="static",
+    ),
+]
+
+# Media
+urlpatterns += [
+    path(
+        "media/<path:path>",
+        serve,
+        {"document_root": settings.MEDIA_ROOT},
+        name="media",
+    ),
 ]
