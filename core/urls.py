@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls.static import static
+from django.views.static import serve
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -16,8 +17,22 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
-# Static (admin CSS/JS)
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# Static files (admin CSS/JS, etc.)
+urlpatterns += [
+    path(
+        "static/<path:path>",
+        serve,
+        {"document_root": settings.STATIC_ROOT},
+        name="static",
+    ),
+]
 
-# Media (qrcodes, fondos, etc.)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Media files (qrcodes, fotos, fondos)
+urlpatterns += [
+    path(
+        "media/<path:path>",
+        serve,
+        {"document_root": settings.MEDIA_ROOT},
+        name="media",
+    ),
+]
