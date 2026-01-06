@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Pika - Experiencia interactiva para fiestas y eventos</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pika - Experiencia interactiva para fiestas y eventos</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -24,288 +32,396 @@
                         "display": ["Spline Sans", "sans-serif"],
                         "body": ["Noto Sans", "sans-serif"],
                     },
-                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
                 },
             },
         }
     </script>
-<style>
+    <style>
         /* Smooth scrolling for anchor links */
-        html { scroll-behavior: smooth; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-white font-display overflow-x-hidden antialiased">
-<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root">
-<!-- Navigation -->
-<header class="sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-[#e6e0db] dark:border-white/10 px-6 py-4">
-<div class="layout-container max-w-[1200px] mx-auto flex items-center justify-between">
-<div class="flex items-center gap-3 text-text-main dark:text-white cursor-pointer select-none">
-<div class="size-8 text-primary">
-<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
-<path clip-rule="evenodd" d="M7.24189 26.4066C7.31369 26.4411 7.64204 26.5637 8.52504 26.3738C9.59462 26.1438 11.0343 25.5311 12.7183 24.4963C14.7583 23.2426 17.0256 21.4503 19.238 19.238C21.4503 17.0256 23.2426 14.7583 24.4963 12.7183C25.5311 11.0343 26.1438 9.59463 26.3738 8.52504C26.5637 7.64204 26.4411 7.31369 26.4066 7.24189C26.345 7.21246 26.143 7.14535 25.6664 7.1918C24.9745 7.25925 23.9954 7.5498 22.7699 8.14278C20.3369 9.32007 17.3369 11.4915 14.4142 14.4142C11.4915 17.3369 9.32007 20.3369 8.14278 22.7699C7.5498 23.9954 7.25925 24.9745 7.1918 25.6664C7.14534 26.143 7.21246 26.345 7.24189 26.4066ZM29.9001 10.7285C29.4519 12.0322 28.7617 13.4172 27.9042 14.8126C26.465 17.1544 24.4686 19.6641 22.0664 22.0664C19.6641 24.4686 17.1544 26.465 14.8126 27.9042C13.4172 28.7617 12.0322 29.4519 10.7285 29.9001L21.5754 40.747C21.6001 40.7606 21.8995 40.931 22.8729 40.7217C23.9424 40.4916 25.3821 39.879 27.0661 38.8441C29.1062 37.5904 31.3734 35.7982 33.5858 33.5858C35.7982 31.3734 37.5904 29.1062 38.8441 27.0661C39.879 25.3821 40.4916 23.9425 40.7216 22.8729C40.931 21.8995 40.7606 21.6001 40.747 21.5754L29.9001 10.7285ZM29.2403 4.41187L43.5881 18.7597C44.9757 20.1473 44.9743 22.1235 44.6322 23.7139C44.2714 25.3919 43.4158 27.2666 42.252 29.1604C40.8128 31.5022 38.8165 34.012 36.4142 36.4142C34.012 38.8165 31.5022 40.8128 29.1604 42.252C27.2666 43.4158 25.3919 44.2714 23.7139 44.6322C22.1235 44.9743 20.1473 44.9757 18.7597 43.5881L4.41187 29.2403C3.29027 28.1187 3.08209 26.5973 3.21067 25.2783C3.34099 23.9415 3.8369 22.4852 4.54214 21.0277C5.96129 18.0948 8.43335 14.7382 11.5858 11.5858C14.7382 8.43335 18.0948 5.9613 21.0277 4.54214C22.4852 3.8369 23.9415 3.34099 25.2783 3.21067C26.5973 3.08209 28.1187 3.29028 29.2403 4.41187Z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Pika</h2>
-</div>
-<nav class="hidden md:flex items-center gap-9">
-<a class="text-text-main dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#how">¿Como funciona?</a>
-<a class="text-text-main dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#why">¿Por qué Pika?</a>
-</nav>
-<a class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-orange-600 transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]" href="#contact">
-<span class="truncate">Contrata Pika</span>
-</a>
-</div>
-</header>
-<main class="flex-grow">
-<!-- Hero Section -->
-<section class="px-4 py-8 md:px-10 lg:px-20 xl:px-40 flex justify-center">
-<div class="w-full max-w-[1200px] flex flex-col md:flex-row gap-8 items-center">
-<div class="flex-1 flex flex-col gap-6 text-left z-10">
-<h1 class="text-text-main dark:text-white text-4xl md:text-6xl font-black leading-[1.1] tracking-[-0.033em]">
-                           Tus invitados en pantalla grande  <br/><span class="text-primary">con Pika</span>
-</h1>
-<h2 class="text-text-muted dark:text-gray-300 text-lg md:text-xl font-normal leading-relaxed max-w-lg">
+
+<body
+    class="bg-background-light dark:bg-background-dark text-text-main dark:text-white font-display overflow-x-hidden antialiased">
+    <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root">
+        <!-- Navigation -->
+        <header
+            class="sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-[#e6e0db] dark:border-white/10 px-6 py-4">
+            <div class="layout-container max-w-[1200px] mx-auto flex items-center justify-between">
+                <div class="flex items-center gap-3 text-text-main dark:text-white cursor-pointer select-none">
+                    <div class="size-8 text-primary">
+                        <svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z"
+                                fill="currentColor"></path>
+                            <path clip-rule="evenodd"
+                                d="M7.24189 26.4066C7.31369 26.4411 7.64204 26.5637 8.52504 26.3738C9.59462 26.1438 11.0343 25.5311 12.7183 24.4963C14.7583 23.2426 17.0256 21.4503 19.238 19.238C21.4503 17.0256 23.2426 14.7583 24.4963 12.7183C25.5311 11.0343 26.1438 9.59463 26.3738 8.52504C26.5637 7.64204 26.4411 7.31369 26.4066 7.24189C26.345 7.21246 26.143 7.14535 25.6664 7.1918C24.9745 7.25925 23.9954 7.5498 22.7699 8.14278C20.3369 9.32007 17.3369 11.4915 14.4142 14.4142C11.4915 17.3369 9.32007 20.3369 8.14278 22.7699C7.5498 23.9954 7.25925 24.9745 7.1918 25.6664C7.14534 26.143 7.21246 26.345 7.24189 26.4066ZM29.9001 10.7285C29.4519 12.0322 28.7617 13.4172 27.9042 14.8126C26.465 17.1544 24.4686 19.6641 22.0664 22.0664C19.6641 24.4686 17.1544 26.465 14.8126 27.9042C13.4172 28.7617 12.0322 29.4519 10.7285 29.9001L21.5754 40.747C21.6001 40.7606 21.8995 40.931 22.8729 40.7217C23.9424 40.4916 25.3821 39.879 27.0661 38.8441C29.1062 37.5904 31.3734 35.7982 33.5858 33.5858C35.7982 31.3734 37.5904 29.1062 38.8441 27.0661C39.879 25.3821 40.4916 23.9425 40.7216 22.8729C40.931 21.8995 40.7606 21.6001 40.747 21.5754L29.9001 10.7285ZM29.2403 4.41187L43.5881 18.7597C44.9757 20.1473 44.9743 22.1235 44.6322 23.7139C44.2714 25.3919 43.4158 27.2666 42.252 29.1604C40.8128 31.5022 38.8165 34.012 36.4142 36.4142C34.012 38.8165 31.5022 40.8128 29.1604 42.252C27.2666 43.4158 25.3919 44.2714 23.7139 44.6322C22.1235 44.9743 20.1473 44.9757 18.7597 43.5881L4.41187 29.2403C3.29027 28.1187 3.08209 26.5973 3.21067 25.2783C3.34099 23.9415 3.8369 22.4852 4.54214 21.0277C5.96129 18.0948 8.43335 14.7382 11.5858 11.5858C14.7382 8.43335 18.0948 5.9613 21.0277 4.54214C22.4852 3.8369 23.9415 3.34099 25.2783 3.21067C26.5973 3.08209 28.1187 3.29028 29.2403 4.41187Z"
+                                fill="currentColor" fill-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Pika</h2>
+                </div>
+                <nav class="hidden md:flex items-center gap-9">
+                    <a class="text-text-main dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors"
+                        href="#how">¿Como funciona?</a>
+                    <a class="text-text-main dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors"
+                        href="#why">¿Por qué Pika?</a>
+                </nav>
+                <a class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-orange-600 transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]"
+                    href="#contact">
+                    <span class="truncate">Contrata Pika</span>
+                </a>
+            </div>
+        </header>
+        <main class="flex-grow">
+            <!-- Hero Section -->
+            <section class="px-4 py-8 md:px-10 lg:px-20 xl:px-40 flex justify-center">
+                <div class="w-full max-w-[1200px] flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1 flex flex-col gap-6 text-left z-10">
+                        <h1
+                            class="text-text-main dark:text-white text-4xl md:text-6xl font-black leading-[1.1] tracking-[-0.033em]">
+                            Tus invitados en pantalla grande <br /><span class="text-primary">con Pika</span>
+                        </h1>
+                        <h2
+                            class="text-text-muted dark:text-gray-300 text-lg md:text-xl font-normal leading-relaxed max-w-lg">
                             Creando la experiencia interactiva para fiestas y eventos más divertida y memorable.
                         </h2>
-<div class="flex flex-col sm:flex-row gap-4 pt-4">
-<a class="flex items-center justify-center rounded-full h-12 md:h-14 px-8 bg-primary hover:bg-orange-600 transition-all transform hover:scale-105 shadow-lg shadow-orange-500/30 text-white text-base font-bold tracking-[0.015em]" href="#contact">
+                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                            <a class="flex items-center justify-center rounded-full h-12 md:h-14 px-8 bg-primary hover:bg-orange-600 transition-all transform hover:scale-105 shadow-lg shadow-orange-500/30 text-white text-base font-bold tracking-[0.015em]"
+                                href="#contact">
                                 Quiero tener Pika en mi evento
                             </a>
-<a class="flex items-center justify-center rounded-full h-12 md:h-14 px-8 bg-white dark:bg-white/10 border border-gray-200 dark:border-white/20 hover:bg-gray-50 dark:hover:bg-white/20 transition-colors text-text-main dark:text-white text-base font-medium" href="#how">
+                            <a class="flex items-center justify-center rounded-full h-12 md:h-14 px-8 bg-white dark:bg-white/10 border border-gray-200 dark:border-white/20 hover:bg-gray-50 dark:hover:bg-white/20 transition-colors text-text-main dark:text-white text-base font-medium"
+                                href="#how">
                                 Como funciona
                             </a>
-</div>
-</div>
-<div class="flex-1 w-full max-w-[600px] h-[400px] md:h-[500px] relative">
-<!-- Decorative Shape Background -->
-<div class="absolute inset-0 bg-primary/20 rounded-[3rem] rotate-3 transform scale-95 z-0"></div>
-<!-- Hero Image -->
-<div class="relative w-full h-full rounded-[3rem] overflow-hidden shadow-2xl z-10">
-<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-20"></div>
-<div class="w-full h-full bg-cover bg-center" data-alt="Group of friends laughing and taking a selfie at a party with confetti" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAnhBuZQRz9V8hbYqVL3rZ7ioTt-57S5lMGIh2GBKvIhvMP_8ZJzH-7w6p0JONd0fYD7XizJV_jO-2SnmFd8UROHpm0jMqnReM_JoNhQMVsj9U4f-Nhh9YdpwIWBpgomroaiRhpqAOIDvnMTcbwUA6rPoXQHNPvnZEkymTEwFyTUVbRMiCLxmLZUKv5F3HZntQXmwMrKnSceSd1y3SZ2XF6eYueYD-8TKly0ffXHg7EDxFbfrLbkg0Q7GdL1eUNm8wrSy7OnXUmKg");'>
-</div>
-<div class="absolute bottom-6 left-6 right-6 z-30">
-<div class="flex items-center gap-2 text-white/90 mb-2">
-<span class="material-symbols-outlined text-primary">verified</span>
-<span class="text-sm font-semibold">Diversióon asegurada</span>
-</div>
-<p class="text-white text-sm font-medium opacity-90">"Solo compartís y todos pueden ver tu foto"</p>
-</div>
-</div>
-<!-- Floating Badge -->
-<div class="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-xl z-30 animate-bounce delay-700 duration-1000 hidden sm:block">
-<div class="flex items-center gap-3">
-<div class="bg-green-100 dark:bg-green-900/30 p-2 rounded-full text-green-600 dark:text-green-400">
-<span class="material-symbols-outlined text-2xl">visibility_lock</span>
-</div>
-<div>
-<p class="text-xs text-text-muted dark:text-gray-400 uppercase font-bold tracking-wider">SafeShare</p>
-<p class="text-sm font-bold text-text-main dark:text-white">Chequeado por humanos</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- How it Works Section -->
-<section class="py-20 bg-white dark:bg-white/5" id="how">
-<div class="layout-container max-w-[1200px] mx-auto px-4 md:px-10">
-<div class="flex flex-col items-center text-center gap-4 mb-16">
-<span class="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">El sistema</span>
-<h2 class="text-3xl md:text-5xl font-bold text-text-main dark:text-white">Como funciona Pika</h2>
-<p class="text-text-muted dark:text-gray-400 max-w-2xl text-lg">Crea la mejor previa de tu fiesta con 3 simples pasos.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<!-- Step 1 -->
-<div class="flex flex-col items-center text-center p-8 rounded-[2rem] bg-background-light dark:bg-background-dark border border-gray-100 dark:border-white/5 hover:border-primary/30 transition-colors group">
-<div class="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center text-primary shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<span class="material-symbols-outlined text-[32px]">photo_camera</span>
-</div>
-<h3 class="text-xl font-bold text-text-main dark:text-white mb-3">Toma una Foto</h3>
-<p class="text-text-muted dark:text-gray-400 leading-relaxed">
-                               Los invitados se toman una foto con su celular escaneando el código QR de la pantalla. Sin descargar apps, sin loggearse, sin instalar cabina ni ningún otro equipo y sobretodo sin hacer fila.
+                        </div>
+                    </div>
+                    <div class="flex-1 w-full max-w-[600px] h-[400px] md:h-[500px] relative">
+                        <!-- Decorative Shape Background -->
+                        <div class="absolute inset-0 bg-primary/20 rounded-[3rem] rotate-3 transform scale-95 z-0">
+                        </div>
+                        <!-- Hero Image -->
+                        <div class="relative w-full h-full rounded-[3rem] overflow-hidden shadow-2xl z-10">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-20">
+                            </div>
+                            <div class="w-full h-full bg-cover bg-center"
+                                data-alt="Group of friends laughing and taking a selfie at a party with confetti"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAnhBuZQRz9V8hbYqVL3rZ7ioTt-57S5lMGIh2GBKvIhvMP_8ZJzH-7w6p0JONd0fYD7XizJV_jO-2SnmFd8UROHpm0jMqnReM_JoNhQMVsj9U4f-Nhh9YdpwIWBpgomroaiRhpqAOIDvnMTcbwUA6rPoXQHNPvnZEkymTEwFyTUVbRMiCLxmLZUKv5F3HZntQXmwMrKnSceSd1y3SZ2XF6eYueYD-8TKly0ffXHg7EDxFbfrLbkg0Q7GdL1eUNm8wrSy7OnXUmKg");'>
+                            </div>
+                            <div class="absolute bottom-6 left-6 right-6 z-30">
+                                <div class="flex items-center gap-2 text-white/90 mb-2">
+                                    <span class="material-symbols-outlined text-primary">verified</span>
+                                    <span class="text-sm font-semibold">Diversióon asegurada</span>
+                                </div>
+                                <p class="text-white text-sm font-medium opacity-90">"Solo compartís y todos pueden ver
+                                    tu foto"</p>
+                            </div>
+                        </div>
+                        <!-- Floating Badge -->
+                        <div
+                            class="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-xl z-30 animate-bounce delay-700 duration-1000 hidden sm:block">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="bg-green-100 dark:bg-green-900/30 p-2 rounded-full text-green-600 dark:text-green-400">
+                                    <span class="material-symbols-outlined text-2xl">visibility_lock</span>
+                                </div>
+                                <div>
+                                    <p
+                                        class="text-xs text-text-muted dark:text-gray-400 uppercase font-bold tracking-wider">
+                                        SafeShare</p>
+                                    <p class="text-sm font-bold text-text-main dark:text-white">Chequeado por humanos
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- How it Works Section -->
+            <section class="py-20 bg-white dark:bg-white/5" id="how">
+                <div class="layout-container max-w-[1200px] mx-auto px-4 md:px-10">
+                    <div class="flex flex-col items-center text-center gap-4 mb-16">
+                        <span
+                            class="bg-primary/10 text-primary px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">El
+                            sistema</span>
+                        <h2 class="text-3xl md:text-5xl font-bold text-text-main dark:text-white">Como funciona Pika
+                        </h2>
+                        <p class="text-text-muted dark:text-gray-400 max-w-2xl text-lg">Crea la mejor previa de tu
+                            fiesta con 3 simples pasos.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Step 1 -->
+                        <div
+                            class="flex flex-col items-center text-center p-8 rounded-[2rem] bg-background-light dark:bg-background-dark border border-gray-100 dark:border-white/5 hover:border-primary/30 transition-colors group">
+                            <div
+                                class="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center text-primary shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <span class="material-symbols-outlined text-[32px]">photo_camera</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-text-main dark:text-white mb-3">Toma una Foto</h3>
+                            <p class="text-text-muted dark:text-gray-400 leading-relaxed">
+                                Los invitados se toman una foto con su celular escaneando el código QR de la pantalla.
+                                Sin descargar apps, sin loggearse, sin instalar cabina ni ningún otro equipo y sobretodo
+                                sin hacer fila.
                             </p>
-</div>
-<!-- Step 2 -->
-<div class="flex flex-col items-center text-center p-8 rounded-[2rem] bg-background-light dark:bg-background-dark border border-gray-100 dark:border-white/5 hover:border-primary/30 transition-colors group relative overflow-hidden">
-<!-- Arrow for desktop -->
-<div class="hidden md:block absolute top-1/2 -left-6 -translate-y-1/2 text-gray-300 dark:text-gray-700 z-10">
-<span class="material-symbols-outlined text-4xl">arrow_forward</span>
-</div>
-<div class="hidden md:block absolute top-1/2 -right-6 -translate-y-1/2 text-gray-300 dark:text-gray-700 z-10">
-<span class="material-symbols-outlined text-4xl">arrow_forward</span>
-</div>
-<div class="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center text-primary shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<span class="material-symbols-outlined text-[32px]">auto_awesome</span>
-</div>
-<h3 class="text-xl font-bold text-text-main dark:text-white mb-3">Pika hace su Magia</h3>
-<p class="text-text-muted dark:text-gray-400 leading-relaxed">
-                               Las fotos son examinadas rapidamente por nuestro equipo humano, sin sorpresas, solo diversión.
+                        </div>
+                        <!-- Step 2 -->
+                        <div
+                            class="flex flex-col items-center text-center p-8 rounded-[2rem] bg-background-light dark:bg-background-dark border border-gray-100 dark:border-white/5 hover:border-primary/30 transition-colors group relative overflow-hidden">
+                            <!-- Arrow for desktop -->
+                            <div
+                                class="hidden md:block absolute top-1/2 -left-6 -translate-y-1/2 text-gray-300 dark:text-gray-700 z-10">
+                                <span class="material-symbols-outlined text-4xl">arrow_forward</span>
+                            </div>
+                            <div
+                                class="hidden md:block absolute top-1/2 -right-6 -translate-y-1/2 text-gray-300 dark:text-gray-700 z-10">
+                                <span class="material-symbols-outlined text-4xl">arrow_forward</span>
+                            </div>
+                            <div
+                                class="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center text-primary shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <span class="material-symbols-outlined text-[32px]">auto_awesome</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-text-main dark:text-white mb-3">Pika hace su Magia</h3>
+                            <p class="text-text-muted dark:text-gray-400 leading-relaxed">
+                                Las fotos son examinadas rapidamente por nuestro equipo humano, sin sorpresas, solo
+                                diversión.
                             </p>
-</div>
-<!-- Step 3 -->
-<div class="flex flex-col items-center text-center p-8 rounded-[2rem] bg-background-light dark:bg-background-dark border border-gray-100 dark:border-white/5 hover:border-primary/30 transition-colors group">
-<div class="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center text-primary shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
-<span class="material-symbols-outlined text-[32px]">send_to_mobile</span>
-</div>
-<h3 class="text-xl font-bold text-text-main dark:text-white mb-3">Fiesta de fotos al instante</h3>
-<p class="text-text-muted dark:text-gray-400 leading-relaxed">
-                                La pantalla gigante del evento reproduce las fotos de todos los invitados en tiempo real. Los mejores momentos en primer plano.
+                        </div>
+                        <!-- Step 3 -->
+                        <div
+                            class="flex flex-col items-center text-center p-8 rounded-[2rem] bg-background-light dark:bg-background-dark border border-gray-100 dark:border-white/5 hover:border-primary/30 transition-colors group">
+                            <div
+                                class="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center text-primary shadow-sm mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <span class="material-symbols-outlined text-[32px]">send_to_mobile</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-text-main dark:text-white mb-3">Fiesta de fotos al
+                                instante</h3>
+                            <p class="text-text-muted dark:text-gray-400 leading-relaxed">
+                                La pantalla gigante del evento reproduce las fotos de todos los invitados en tiempo
+                                real. Los mejores momentos en primer plano.
                             </p>
-</div>
-</div>
-</div>
-</section>
-<!-- Why Pika Section -->
-<section class="py-20 px-4 md:px-10 max-w-[1200px] mx-auto" id="why">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-<div class="order-2 lg:order-1 relative">
-<!-- Image Grid -->
-<div class="grid grid-cols-2 gap-4">
-<div class="space-y-4 pt-12">
-<div class="w-full aspect-[3/4] rounded-2xl bg-cover bg-center shadow-lg" data-alt="Vertical photo of two friends smiling at a wedding reception" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwxzESzAd3U1LBo0I62mdHXtk21dm19eHN092yxC59JKqH6iRa1sFE2rtxoHUqf2PlyjsQgRqBykwe_s_XqtbhX4WK5b3anSCcFYiBp_OLgJKVWRKt13qiO7s2AST39QgMPU04lqrKHR_n4NEnIMQ2amTooeqFx62LFCmMdNmi4JpfLiBodWPOWNNtTb7f2l8mkuz5MmtGMeq6IDzuSnFXjO1Ni8OI4f2Ke4FISKEH6hGxb-2QPyN_K88jM9RZAR5amOcjacWccg');"></div>
-<div class="w-full aspect-square rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center p-6 text-center">
-<div class="space-y-2">
-<span class="text-4xl font-bold text-primary">100%</span>
-<p class="text-sm font-medium text-text-muted">Fotos personales, cada invitado elije lo que comparte</p>
-</div>
-</div>
-</div>
-<div class="space-y-4">
-<div class="w-full aspect-square rounded-2xl bg-primary/10 flex items-center justify-center p-6">
-<span class="material-symbols-outlined text-primary text-6xl">sentiment_very_satisfied</span>
-</div>
-<div class="w-full aspect-[3/4] rounded-2xl bg-cover bg-center shadow-lg" data-alt="Vertical photo of a group dancing at a corporate event" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCMzZGbnUUGiX-DOqpnHRU7etce6iPMi9m0IQElyb9_xwsyjCNDKH7ZT-3WEthXdjgfHxKGyW0hd1IQR4ZtDdXfDufZ23jl6mU3oVWd8J1Q69XCzr-JCR5jvjGyAcXQsLx7C32-gaWw0TpfwZ94hDhpZqlKbWp3ivNe-VIaCHNh23Niru2kt-ob5vI7M-pND8yoBD3gIwlPtyyAkZ8HRgnl1neNBuVxqRu3yWB0YFuKC9iy-E7MZmudLBQ-3OPlfn7LTqMsAKDPRg');"></div>
-</div>
-</div>
-</div>
-<div class="order-1 lg:order-2">
-<h2 class="text-3xl md:text-5xl font-bold text-text-main dark:text-white mb-6">¿Por qué elegir Pika?</h2>
-<p class="text-lg text-text-muted dark:text-gray-300 mb-10">Interacción al instante, segura y divertida.</p>
-<div class="space-y-6">
-<div class="flex gap-4 items-start">
-<div class="mt-1 bg-green-100 dark:bg-green-900/30 p-2 rounded-full text-green-600 dark:text-green-400 shrink-0">
-<span class="material-symbols-outlined text-xl">check</span>
-</div>
-<div>
-<h4 class="text-xl font-bold text-text-main dark:text-white">Sin esperas</h4>
-<p class="text-text-muted dark:text-gray-400 mt-1">Todos comparten sus fotos sin hacer fila, ni armar grandes equipos ocupando espacio en la fiesta.</p>
-</div>
-</div>
-<div class="flex gap-4 items-start">
-<div class="mt-1 bg-purple-100 dark:bg-purple-900/30 p-2 rounded-full text-purple-600 dark:text-purple-400 shrink-0">
-<span class="material-symbols-outlined text-xl">check</span>
-</div>
-<div>
-<h4 class="text-xl font-bold text-text-main dark:text-white">Diversión asegurada</h4>
-<p class="text-text-muted dark:text-gray-400 mt-1">Pika es a prueba de graciosos, las fotos son seleccionadas en tiempo real por un equipo humano, no le confiamos tu evento a la IA, al menos por ahora, ustedes festejen, nosotros filtramos las fotos.</p>
-</div>
-</div>
-<div class="flex gap-4 items-start">
-<div class="mt-1 bg-blue-100 dark:bg-blue-900/30 p-2 rounded-full text-blue-600 dark:text-blue-400 shrink-0">
-<span class="material-symbols-outlined text-xl">check</span>
-</div>
-<div>
-<h4 class="text-xl font-bold text-text-main dark:text-white">Más fotos para ti</h4>
-<p class="text-text-muted dark:text-gray-400 mt-1">Después del evento puedes descargar todas las fotos que los invitados compartieron, no en días o semanas, inmediatamente.</p>
-</div>
-</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Why Pika Section -->
+            <section class="py-20 px-4 md:px-10 max-w-[1200px] mx-auto" id="why">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <div class="order-2 lg:order-1 relative">
+                        <!-- Image Grid -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-4 pt-12">
+                                <div class="w-full aspect-[3/4] rounded-2xl bg-cover bg-center shadow-lg"
+                                    data-alt="Vertical photo of two friends smiling at a wedding reception"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwxzESzAd3U1LBo0I62mdHXtk21dm19eHN092yxC59JKqH6iRa1sFE2rtxoHUqf2PlyjsQgRqBykwe_s_XqtbhX4WK5b3anSCcFYiBp_OLgJKVWRKt13qiO7s2AST39QgMPU04lqrKHR_n4NEnIMQ2amTooeqFx62LFCmMdNmi4JpfLiBodWPOWNNtTb7f2l8mkuz5MmtGMeq6IDzuSnFXjO1Ni8OI4f2Ke4FISKEH6hGxb-2QPyN_K88jM9RZAR5amOcjacWccg');">
+                                </div>
+                                <div
+                                    class="w-full aspect-square rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center p-6 text-center">
+                                    <div class="space-y-2">
+                                        <span class="text-4xl font-bold text-primary">100%</span>
+                                        <p class="text-sm font-medium text-text-muted">Fotos personales, cada invitado
+                                            elije lo que comparte</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div
+                                    class="w-full aspect-square rounded-2xl bg-primary/10 flex items-center justify-center p-6">
+                                    <span
+                                        class="material-symbols-outlined text-primary text-6xl">sentiment_very_satisfied</span>
+                                </div>
+                                <div class="w-full aspect-[3/4] rounded-2xl bg-cover bg-center shadow-lg"
+                                    data-alt="Vertical photo of a group dancing at a corporate event"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCMzZGbnUUGiX-DOqpnHRU7etce6iPMi9m0IQElyb9_xwsyjCNDKH7ZT-3WEthXdjgfHxKGyW0hd1IQR4ZtDdXfDufZ23jl6mU3oVWd8J1Q69XCzr-JCR5jvjGyAcXQsLx7C32-gaWw0TpfwZ94hDhpZqlKbWp3ivNe-VIaCHNh23Niru2kt-ob5vI7M-pND8yoBD3gIwlPtyyAkZ8HRgnl1neNBuVxqRu3yWB0YFuKC9iy-E7MZmudLBQ-3OPlfn7LTqMsAKDPRg');">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <h2 class="text-3xl md:text-5xl font-bold text-text-main dark:text-white mb-6">¿Por qué elegir
+                            Pika?</h2>
+                        <p class="text-lg text-text-muted dark:text-gray-300 mb-10">Interacción al instante, segura y
+                            divertida.</p>
+                        <div class="space-y-6">
+                            <div class="flex gap-4 items-start">
+                                <div
+                                    class="mt-1 bg-green-100 dark:bg-green-900/30 p-2 rounded-full text-green-600 dark:text-green-400 shrink-0">
+                                    <span class="material-symbols-outlined text-xl">check</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-text-main dark:text-white">Sin esperas</h4>
+                                    <p class="text-text-muted dark:text-gray-400 mt-1">Todos comparten sus fotos sin
+                                        hacer fila, ni armar grandes equipos ocupando espacio en la fiesta.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 items-start">
+                                <div
+                                    class="mt-1 bg-purple-100 dark:bg-purple-900/30 p-2 rounded-full text-purple-600 dark:text-purple-400 shrink-0">
+                                    <span class="material-symbols-outlined text-xl">check</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-text-main dark:text-white">Diversión asegurada
+                                    </h4>
+                                    <p class="text-text-muted dark:text-gray-400 mt-1">Pika es a prueba de graciosos,
+                                        las fotos son seleccionadas en tiempo real por un equipo humano, no le confiamos
+                                        tu evento a la IA, al menos por ahora, ustedes festejen, nosotros filtramos las
+                                        fotos.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 items-start">
+                                <div
+                                    class="mt-1 bg-blue-100 dark:bg-blue-900/30 p-2 rounded-full text-blue-600 dark:text-blue-400 shrink-0">
+                                    <span class="material-symbols-outlined text-xl">check</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-text-main dark:text-white">Más fotos para ti</h4>
+                                    <p class="text-text-muted dark:text-gray-400 mt-1">Después del evento puedes
+                                        descargar todas las fotos que los invitados compartieron, no en días o semanas,
+                                        inmediatamente.</p>
+                                </div>
+                            </div>
 
-</div>
-</div>
-</div>
-</section>
-<!-- Image Showcase Banner -->
-<section class="py-10">
-<div class="w-full overflow-hidden">
-<div class="flex gap-4 px-4 min-w-full overflow-x-auto pb-4 scrollbar-hide">
-<div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center" data-alt="Happy people at a party" style="background-image: url('https://ik.imagekit.io/pika/Pika/Selfie%20en%20la%20recepci%C3%B3n%20de%20boda.png');"></div>
-<div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center" data-alt="Friends smiling for photo" style="background-image: url('https://ik.imagekit.io/pika/Pika/6.png');"></div>
-<div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center" data-alt="Corporate event networking" style="background-image: url('https://ik.imagekit.io/pika/Pika/5.png');"></div>
-<div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center" data-alt="Birthday celebration with balloons" style="background-image: url('https://ik.imagekit.io/pika/Pika/4.png');"></div>
-<div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center" data-alt="Concert crowd cheering" style="background-image: url('https://ik.imagekit.io/pika/Pika/invitados.png');"></div>
-<div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center" data-alt="Concert crowd cheering" style="background-image: url('https://ik.imagekit.io/pika/Pika/3.png');"></div>
-<div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center" data-alt="Concert crowd cheering" style="background-image: url('https://ik.imagekit.io/pika/Pika/2.png');"></div>
-</div>
-</div>
-</section>
-<!-- Contact / CTA Section -->
-<section class="py-20 px-4 md:px-10" id="contact">
-<div class="max-w-[960px] mx-auto bg-text-main dark:bg-gray-900 rounded-[2.5rem] p-8 md:p-16 relative overflow-hidden shadow-2xl">
-<!-- Background blobs -->
-<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>
-<div class="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
-<div class="relative z-10 flex flex-col md:flex-row gap-12">
-<div class="flex-1 text-white">
-<h2 class="text-3xl md:text-5xl font-black mb-6 tracking-tight">¿Arranca la fiesta?</h2>
-<p class="text-gray-300 text-lg mb-8 leading-relaxed">
-                               Llevemos la magia de Pika a tu próximo evento. ¡Llena el formulario y te enviaremos un presupuesto personalizado! El día de la fiesta, solo nececitarás un par de links y el sistema estará totalmente activo para que tus invitados comiencen a compartir sus fotos al instante.
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Image Showcase Banner -->
+            <section class="py-10">
+                <div class="w-full overflow-hidden">
+                    <div class="flex gap-4 px-4 min-w-full overflow-x-auto pb-4 scrollbar-hide">
+                        <div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center"
+                            data-alt="Happy people at a party"
+                            style="background-image: url('https://ik.imagekit.io/pika/Pika/Selfie%20en%20la%20recepci%C3%B3n%20de%20boda.png');">
+                        </div>
+                        <div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center"
+                            data-alt="Friends smiling for photo"
+                            style="background-image: url('https://ik.imagekit.io/pika/Pika/6.png');"></div>
+                        <div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center"
+                            data-alt="Corporate event networking"
+                            style="background-image: url('https://ik.imagekit.io/pika/Pika/5.png');"></div>
+                        <div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center"
+                            data-alt="Birthday celebration with balloons"
+                            style="background-image: url('https://ik.imagekit.io/pika/Pika/4.png');"></div>
+                        <div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center"
+                            data-alt="Concert crowd cheering"
+                            style="background-image: url('https://ik.imagekit.io/pika/Pika/invitados.png');"></div>
+                        <div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center"
+                            data-alt="Concert crowd cheering"
+                            style="background-image: url('https://ik.imagekit.io/pika/Pika/3.png');"></div>
+                        <div class="w-64 md:w-80 h-48 md:h-60 shrink-0 rounded-xl bg-cover bg-center"
+                            data-alt="Concert crowd cheering"
+                            style="background-image: url('https://ik.imagekit.io/pika/Pika/2.png');"></div>
+                    </div>
+                </div>
+            </section>
+            <!-- Contact / CTA Section -->
+            <section class="py-20 px-4 md:px-10" id="contact">
+                <div
+                    class="max-w-[960px] mx-auto bg-text-main dark:bg-gray-900 rounded-[2.5rem] p-8 md:p-16 relative overflow-hidden shadow-2xl">
+                    <!-- Background blobs -->
+                    <div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row gap-12">
+                        <div class="flex-1 text-white">
+                            <h2 class="text-3xl md:text-5xl font-black mb-6 tracking-tight">¿Arranca la fiesta?</h2>
+                            <p class="text-gray-300 text-lg mb-8 leading-relaxed">
+                                Llevemos la magia de Pika a tu próximo evento. ¡Llena el formulario y te enviaremos un
+                                presupuesto personalizado! El día de la fiesta, solo nececitarás un par de links y el
+                                sistema estará totalmente activo para que tus invitados comiencen a compartir sus fotos
+                                al instante.
                             </p>
-<div class="flex flex-col gap-4">
-<div class="flex items-center gap-3 text-gray-300">
-<span class="material-symbols-outlined">mail</span>
-<span>hello@pikaphoto.com</span>
-</div>
-<div class="flex items-center gap-3 text-gray-300">
-<span class="material-symbols-outlined">call</span>
-<span>+598 094 539 027</span>
-</div>
-</div>
-</div>
-<div class="flex-1 bg-white dark:bg-gray-800 p-6 md:p-8 rounded-2xl shadow-lg">
-<form class="flex flex-col gap-4">
-<div>
-<label class="block text-sm font-bold text-text-main dark:text-gray-300 mb-1" for="name">Tu Nombre</label>
-<input class="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-background-light dark:bg-gray-700 text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" id="name" placeholder="Juan Perez" type="text"/>
-</div>
-<div>
-<label class="block text-sm font-bold text-text-main dark:text-gray-300 mb-1" for="email">Email</label>
-<input class="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-background-light dark:bg-gray-700 text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" id="email" placeholder="juanpe@ejemplo.com" type="email"/>
-</div>
-<div class="grid grid-cols-2 gap-4">
-<div>
-<label class="block text-sm font-bold text-text-main dark:text-gray-300 mb-1" for="event-type">Tipo de evento</label>
-<select class="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-background-light dark:bg-gray-700 text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none cursor-pointer" id="event-type">
-<option>Boda</option>
-<option>Corporativo</option>
-<option>Cumpleaños</option>
-<option>Otro</option>
-</select>
-</div>
-<div>
-<label class="block text-sm font-bold text-text-main dark:text-gray-300 mb-1" for="date">Fecha</label>
-<input class="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-background-light dark:bg-gray-700 text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" id="date" type="date"/>
-</div>
-</div>
-<button class="mt-4 w-full h-12 bg-primary hover:bg-orange-600 text-white font-bold rounded-xl transition-colors shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2" type="button">
-<span>Envíame una cotización</span>
-<span class="material-symbols-outlined text-sm">send</span>
-</button>
-</form>
-</div>
-</div>
-</div>
-</section>
-</main>
-<footer class="bg-white dark:bg-background-dark py-10 px-6 border-t border-gray-100 dark:border-white/5">
-<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-<div class="flex items-center gap-2 text-text-main dark:text-white">
-<div class="size-6 text-primary">
-<svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
-</svg>
-</div>
-<span class="font-bold">Pika</span>
-</div>
-<div class="flex gap-8 text-sm text-text-muted dark:text-gray-400">
-<a class="hover:text-primary transition-colors" href="#">Política de privacidad</a>
-<a class="hover:text-primary transition-colors" href="#">Terminos y condiciones</a>
-<a class="hover:text-primary transition-colors" href="#">Instagram</a>
-</div>
-<p class="text-xs text-gray-400">© 2026 Pika Experiencia interactiva. All rights reserved.</p>
-</div>
-</footer>
-</div>
-</body></html>
+                            <div class="flex flex-col gap-4">
+                                <div class="flex items-center gap-3 text-gray-300">
+                                    <span class="material-symbols-outlined">mail</span>
+                                    <span>hello@pikaphoto.com</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-gray-300">
+                                    <span class="material-symbols-outlined">call</span>
+                                    <span>+598 094 539 027</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1 bg-white dark:bg-gray-800 p-6 md:p-8 rounded-2xl shadow-lg">
+                            <form class="flex flex-col gap-4" action="https://formspree.io/f/xojvoolv" method="POST">
+                                <div>
+                                    <label class="block text-sm font-bold text-text-main dark:text-gray-300 mb-1"
+                                        for="name">Tu Nombre</label>
+                                    <input id="name" name="name" type="text" placeholder="Juan Perez"
+                                        class="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-background-light dark:bg-gray-700 text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                                        required />
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-bold text-text-main dark:text-gray-300 mb-1"
+                                        for="email">Email</label>
+                                    <input id="email" name="email" type="email" placeholder="juanpe@ejemplo.com"
+                                        class="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-background-light dark:bg-gray-700 text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                                        required />
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-bold text-text-main dark:text-gray-300 mb-1"
+                                            for="event-type">Tipo de evento</label>
+                                        <select id="event-type" name="event_type"
+                                            class="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-background-light dark:bg-gray-700 text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none cursor-pointer">
+                                            <option value="Boda">Boda</option>
+                                            <option value="Corporativo">Corporativo</option>
+                                            <option value="Cumpleaños">Cumpleaños</option>
+                                            <option value="Otro">Otro</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-bold text-text-main dark:text-gray-300 mb-1"
+                                            for="date">Fecha</label>
+                                        <input id="date" name="date" type="date"
+                                            class="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-600 bg-background-light dark:bg-gray-700 text-text-main dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" />
+                                    </div>
+                                </div>
+
+                                <button type="submit"
+                                    class="mt-4 w-full h-12 bg-primary hover:bg-orange-600 text-white font-bold rounded-xl transition-colors shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
+                                    <span>Envíame una cotización</span>
+                                    <span class="material-symbols-outlined text-sm">send</span>
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="bg-white dark:bg-background-dark py-10 px-6 border-t border-gray-100 dark:border-white/5">
+            <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2 text-text-main dark:text-white">
+                    <div class="size-6 text-primary">
+                        <svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <span class="font-bold">Pika</span>
+                </div>
+                <div class="flex gap-8 text-sm text-text-muted dark:text-gray-400">
+                    <a class="hover:text-primary transition-colors" href="#">Política de privacidad</a>
+                    <a class="hover:text-primary transition-colors" href="#">Terminos y condiciones</a>
+                    <a class="hover:text-primary transition-colors" href="#">Instagram</a>
+                </div>
+                <p class="text-xs text-gray-400">© 2026 Pika Experiencia interactiva. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
