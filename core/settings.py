@@ -95,10 +95,8 @@ import dj_database_url
 
 DATABASES = {
     "default": dj_database_url.config(
-        env="DATABASE_URL",
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        default="postgresql://priveiro:21Gramos@localhost:5432/db_pika",
         conn_max_age=600,
-        ssl_require=True,
     )
 }
 

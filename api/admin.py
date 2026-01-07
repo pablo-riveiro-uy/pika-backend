@@ -11,12 +11,13 @@ class PhotoInline(admin.TabularInline):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'user', 'created_at', 'id', 'token', 'theme', 'font')
+    list_display = ('title', 'date', 'user', 'created_at', 'id', 'token', 'theme', 'font', 'is_square_screen')
     list_filter = ('date', 'created_at', 'theme', 'font')
     fields = (
         'user', 'title', 'description', 'date',
         'theme', 'font', 'slider_background',
         'qrcode', 'token', 'created_at',
+        'is_square_screen'
     )
     readonly_fields = ('qrcode', 'token', 'created_at')
     inlines = [PhotoInline]

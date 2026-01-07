@@ -5,215 +5,387 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ event.title }}</title>
-  <style>
-    :root {
-        --bg-dark: #050505;
-        --fg-dark: #f5f5f5;
-        --bg-light: #ffffff;
-        --fg-light: #111111;
-    }
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --fg-dark: #f5f5f5;
+            --bg-light: #ffffff;
+            --fg-light: #111111;
+        }
 
-    body {
-        margin: 0;
-        min-height: 100vh;
+        body {
+            margin: 0;
+            min-height: 100vh;
 
-        {% if event.theme == "dark" %}
-        background-color: var(--bg-dark);
-        color: var(--fg-dark);
-        {% else %}
-        background-color: var(--bg-light);
-        color: var(--fg-light);
-        {% endif %}
+                {
+                % if event.theme=="dark" %
+            }
 
-        {% if event.font == "system" %}
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        {% elif event.font == "montserrat" %}
-        font-family: "Montserrat", system-ui, sans-serif;
-        {% elif event.font == "roboto" %}
-        font-family: "Roboto", system-ui, sans-serif;
-        {% elif event.font == "lora" %}
-        font-family: "Lora", "Times New Roman", serif;
-        {% endif %}
-    }
+            background-color: var(--bg-dark);
+            color: var(--fg-dark);
 
-    .slider-wrapper {
-        width: 100%;
-        height: 100vh;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        position: relative;
-        padding: 24px 32px;
-        box-sizing: border-box;
+                {
+                % else %
+            }
 
-        {% if event.slider_background %}
-        background-image: url("{{ event.slider_background.url }}");
-        {% endif %}
+            background-color: var(--bg-light);
+            color: var(--fg-light);
 
-        {% if event.theme == "dark" %}
-        color: var(--fg-light);
-        {% else %}
-        color: var(--fg-dark);
-        {% endif %}
-    }
+                {
+                % endif %
+            }
 
-    .title-box {
-        background: rgba(111, 111, 111, 0.3);
-        padding: 10px 26px;
-        border-radius: 999px;
-    }
+                {
+                % if event.font=="system" %
+            }
 
-    .title {
-        margin: 0;
-        font-size: 2.4rem;
-        text-align: center;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.94);
-    }
+            font-family: system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            sans-serif;
 
-    .layout {
-        flex: 1;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        position: relative;
-    }
+                {
+                % elif event.font=="montserrat" %
+            }
 
-    .qr-column {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
+            font-family: "Montserrat",
+            system-ui,
+            sans-serif;
 
-    .qr-column.left {
-        left: 24px;
-    }
+                {
+                % elif event.font=="roboto" %
+            }
 
-    .qr-column.right {
-        right: 24px;
-    }
+            font-family: "Roboto",
+            system-ui,
+            sans-serif;
 
-    .qr-title-box {
-        background: rgba(0, 0, 0, 0.45);
-        padding: 6px 12px;
-        width: 60%;
-        border-radius: 999px;
-    }
+                {
+                % elif event.font=="lora" %
+            }
 
-    .qr-title {
-        margin: 0;
-        font-size: 1.8rem;
-        text-align: center;
-        text-shadow: 0 0 6px rgba(199, 199, 199, 0.8);
-    }
+            font-family: "Lora",
+            "Times New Roman",
+            serif;
 
-    .qr-box {
-        width: 290px;
-        height: 290px;
-        background: rgba(0, 0, 0, 0.35);
-        border-radius: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        box-sizing: border-box;
-    }
+                {
+                % endif %
+            }
+        }
 
-    .qr-box img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-    }
+        /* Contenedor que ocupa toda la pantalla */
+        .page-wrapper {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
 
-    .slideshow-container {
-        margin: 0 auto;
-        width: calc(100% - 2 * (230px + 48px));
-        max-width: 800px;
-        height: 82vh;
-        max-height: 820px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.35);
-        border-radius: 18px;
-        box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
-        overflow: hidden;
-    }
+        /* Cuadrado centrado que contiene todo */
+        .square-layout {
+            height: 100vh;
+            aspect-ratio: 4 / 3;
+            max-width: 100vw;
+            overflow: hidden;
+        }
 
-    .slideshow-container img {
-        width: 100%;
-        height: auto;
-        max-height: 100%;
-        object-fit: contain;
-    }
 
-    @media (max-width: 1150px) {
-        .qr-column {
-            position: static;
-            transform: none;
+        /* Cuando NO es cuadrado, usamos el ancho completo como hasta ahora */
+        .full-layout {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .slider-wrapper {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            padding: 16px 24px;
+            box-sizing: border-box;
+
+                {
+                % if event.slider_background %
+            }
+
+            background-image: url("{{ event.slider_background.url }}");
+
+                {
+                % endif %
+            }
+
+                {
+                % if event.theme=="dark" %
+            }
+
+            color: var(--fg-light);
+
+                {
+                % else %
+            }
+
+            color: var(--fg-dark);
+
+                {
+                % endif %
+            }
+        }
+
+        .title-box {
+            background: rgba(111, 111, 111, 0.3);
+            padding: 10px 26px;
+            border-radius: 999px;
+        }
+
+        .title {
+            margin: 0;
+            font-size: 2.4rem;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.94);
         }
 
         .layout {
-            flex-direction: column;
-            gap: 20px;
+            flex: 1;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            position: relative;
         }
 
-        .slideshow-container {
-            width: 90vw;
-            height: 70vh;
+        .qr-column {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
         }
-    }
-</style>
+
+        /* Modo cuadrado: pegados más abajo */
+        .square-layout .qr-column {
+            bottom: 3%;
+            top: auto;
+            transform: translateY(0);
+        }
+
+        .square-layout .qr-column.left {
+            left: 0;
+            z-index: 1000;
+        }
+
+
+        /* En cuadrado, tamaño de QR medio (ni mínimo ni gigante) */
+        .square-layout .qr-box {
+            width: 200px;
+            height: 200px;
+        }
+
+        .full-layout .qr-column {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* En cuadrado, títulos un poco más chicos para no tapar */
+        .square-layout .qr-title {
+            font-size: 1.4rem;
+        }
+
+        .qr-column.left {
+            left: 8px;
+            z-index: 30000;
+        }
+
+        .qr-column.right {
+            right: 8px;
+        }
+
+        .qr-title-box {
+            background: rgba(0, 0, 0, 0.45);
+            padding: 4px 10px;
+            width: 70%;
+            border-radius: 999px;
+        }
+
+        .qr-title {
+            margin: 0;
+            font-size: 1.3rem;
+            text-align: center;
+            text-shadow: 0 0 6px rgba(199, 199, 199, 0.8);
+        }
+
+        .full-layout .qr-title {
+            font-size: 1.8rem;
+        }
+
+        .qr-box {
+            width: 200px;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        /* Reducir más si es cuadrado y ancho limitado */
+        .full-layout .qr-box {
+            width: 280px;
+            height: 280px;
+        }
+
+        .qr-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+
+        /* Versión normal (wide) */
+        .slideshow-container {
+            margin: 0 auto;
+            width: calc(100% - 2 * (320px + 40px));
+            /* ancho entre QRs grandes */
+            max-width: 1100px;
+            height: 85%;
+            /* más alto */
+            max-height: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 18px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+        }
+
+        /* Imagen: SIEMPRE mismo comportamiento: mantener proporción */
+        .slideshow-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* mantiene proporción: vertical llena alto, horizontal llena ancho */
+            object-position: center;
+        }
+
+        /* Asegura que la fila use todo el alto */
+        .full-layout .layout {
+            align-items: stretch;
+            /* los hijos llenan el eje vertical */
+        }
+
+        /* El slideshow ocupa casi todo el alto de layout */
+        .full-layout .slideshow-container {
+            height: 90%;
+        }
+
+        /* Imagen: que use el alto como referencia */
+        .full-layout .slideshow-container img {
+            width: auto;
+            top: 3px;
+            position: absolute;
+            /* que no limite por ancho */
+            height: 100%;
+            /* llena el alto del slide */
+            max-width: 100%;
+            /* no se pase lateralmente */
+            object-fit: contain;
+            object-position: center;
+        }
+
+        /* Versión cuadrada */
+        .slideshow-container.square {
+            width: 95%;
+            height: 120%;
+        }
+
+        .square-layout .slideshow-container {
+            width: 95%;
+            height: 100%;
+            top: 3px;
+            position: absolute;
+            max-width: none;
+            max-height: none;
+        }
+
+
+
+        .square-layout .slideshow-container img {
+            object-fit: contain;
+            object-position: center;
+        }
+
+
+        @media (max-width: 1150px) {
+            .qr-column {
+                position: static;
+                transform: none;
+            }
+
+            .layout {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .slideshow-container {
+                width: 90vw;
+                height: 70vh;
+            }
+        }
+    </style>
 
 
 </head>
 
 <body>
-    <div class="slider-wrapper">
-        <div class="title-box">
-            <h1 class="title">{{ event.title }}</h1>
-        </div>
-
-        <div class="layout">
-            <!-- QR izquierda, pegado al borde pero centrado verticalmente -->
-            <div class="qr-column left">
-                <div class="qr-title-box">
-                    <p class="qr-title">Escaneá para compartir tus fotos</p>
+    <div class="page-wrapper">
+        <div class="{% if event.is_square_screen %}square-layout{% else %}full-layout{% endif %}">
+            <div class="slider-wrapper">
+                <div class="title-box">
+                    <h1 class="title">{{ event.title }}</h1>
                 </div>
-                <div class="qr-box">
-                    {% if event.qrcode %}
-                    <img src="{{ event.qrcode.url }}" alt="QR para subir fotos">
-                    {% else %}
-                    <span>QR no disponible</span>
-                    {% endif %}
-                </div>
-            </div>
 
-            <!-- Centro: slideshow más alto y angosto -->
-            <div class="slideshow-container" id="slideshow-container">
-                Cargando fotos...
-            </div>
+                <div class="layout">
+                    <div class="qr-column left">
+                        <div class="qr-title-box">
+                            <p class="qr-title">Escaneá para compartir tus fotos</p>
+                        </div>
+                        <div class="qr-box">
+                            {% if event.qrcode %}
+                            <img src="{{ event.qrcode.url }}" alt="QR para subir fotos">
+                            {% else %}
+                            <span>QR no disponible</span>
+                            {% endif %}
+                        </div>
+                    </div>
 
-            <!-- QR derecha, pegado al borde pero centrado verticalmente -->
-            <div class="qr-column right">
-                <div class="qr-title-box">
-                    <p class="qr-title">Escaneá para compartir tus fotos</p>
-                </div>
-                <div class="qr-box">
-                    {% if event.qrcode %}
-                    <img src="{{ event.qrcode.url }}" alt="QR para subir fotos">
-                    {% else %}
-                    <span>QR no disponible</span>
-                    {% endif %}
+                    <div class="slideshow-container" id="slideshow-container">
+                        Cargando fotos...
+                    </div>
+
+                    <div class="qr-column right">
+                        <div class="qr-title-box">
+                            <p class="qr-title">Escaneá para compartir tus fotos</p>
+                        </div>
+                        <div class="qr-box">
+                            {% if event.qrcode %}
+                            <img src="{{ event.qrcode.url }}" alt="QR para subir fotos">
+                            {% else %}
+                            <span>QR no disponible</span>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

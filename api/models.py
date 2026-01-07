@@ -46,6 +46,10 @@ class Event(models.Model):
         blank=True,
         null=True,
     )
+    is_square_screen = models.BooleanField(
+        default=False,
+        help_text="Marca esta opción si la pantalla del evento es cuadrada.",
+    )
 
     def get_upload_url(self):
         relative = reverse("event_photo_upload", kwargs={"token": self.token})
